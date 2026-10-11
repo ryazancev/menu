@@ -1,0 +1,30 @@
+{
+  "name": "Меню на месяц",
+  "short_name": "Меню",
+  "lang": "ru",
+  "description": "Меню на 4 недели: заготовки, тарелки по сухому весу, КБЖУ за день",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F1F3EF",
+  "theme_color": "#2E6B4B",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

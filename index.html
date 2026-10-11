@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Меню на месяц</title>
+<meta name="description" content="Меню на 4 недели: заготовки, тарелки по сухому весу, КБЖУ за день">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2E6B4B">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Меню">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#F1F3EF; --surface:#FBFCFA; --surface2:#EAEEE6;
+  --ink:#1B211C; --muted:#5E6A60; --line:#D8DED2; --line-strong:#BEC7B6;
+  --accent:#2E6B4B; --accent-soft:#DCEADF;
+  --me:#2F5E86; --me-soft:#DEE9F3;
+  --wife:#8A4A63; --wife-soft:#F2E1E8;
+  --warn:#8A5A1E;
+  --shadow:0 1px 2px rgba(27,33,28,.06), 0 8px 24px -16px rgba(27,33,28,.3);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#13170F; --surface:#1B2018; --surface2:#232920;
+    --ink:#E7EBE0; --muted:#9BA694; --line:#2E352A; --line-strong:#414A3B;
+    --accent:#7FBE95; --accent-soft:#223328;
+    --me:#84B2DA; --me-soft:#1C2B38;
+    --wife:#D79BB2; --wife-soft:#33212A;
+    --warn:#D9A863;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#13170F; --surface:#1B2018; --surface2:#232920;
+  --ink:#E7EBE0; --muted:#9BA694; --line:#2E352A; --line-strong:#414A3B;
+  --accent:#7FBE95; --accent-soft:#223328;
+  --me:#84B2DA; --me-soft:#1C2B38;
+  --wife:#D79BB2; --wife-soft:#33212A;
+  --warn:#D9A863;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:15px; line-height:1.5; margin:0;
+}
+.wrap{max-width:1080px; margin:0 auto; padding-inline:18px; padding-block:0 56px}
+h1,h2,h3,h4{font-family:"Bitter", Georgia, serif; text-wrap:balance; margin:0}
+h1{font-size:30px; font-weight:700; letter-spacing:-.01em}
+h2{font-size:22px; font-weight:600; margin-bottom:6px}
+h3{font-size:17px; font-weight:600}
+p{margin:0}
+a{color:var(--accent)}
+.num{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums}
+.eyebrow{font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:600}
+
+/* header */
+header.top{padding-block:30px 16px; display:flex; flex-direction:column; gap:10px}
+header.top .lede{color:var(--muted); max-width:62ch}
+.budget{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
+.budget .b{
+  border:1px solid var(--line); border-radius:9px; background:var(--surface);
+  padding:9px 13px; display:flex; align-items:baseline; gap:9px; min-width:0;
+}
+.budget .b.me{border-left:3px solid var(--me)}
+.budget .b.wife{border-left:3px solid var(--wife)}
+.budget .who{font-weight:600; font-size:13px}
+.budget .val{font-size:13px; color:var(--muted)}
+
+/* nav */
+nav.tabs{
+  position:sticky; top:env(safe-area-inset-top, 0px); z-index:20;
+  background:color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  margin-inline:-18px; padding-inline:18px;
+}
+nav.tabs .inner{max-width:1080px; margin:0 auto; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none}
+nav.tabs .inner::-webkit-scrollbar{display:none}
+nav.tabs button{
+  font:inherit; font-size:13.5px; font-weight:500; color:var(--muted);
+  background:none; border:none; border-bottom:2px solid transparent;
+  padding:11px 12px; cursor:pointer; white-space:nowrap;
+}
+nav.tabs button:hover{color:var(--ink)}
+nav.tabs button[aria-selected="true"]{color:var(--accent); border-bottom-color:var(--accent)}
+nav.tabs button:focus-visible{outline:2px solid var(--accent); outline-offset:-2px; border-radius:4px}
+
+section.panel{padding-top:26px}
+.section-head{margin-bottom:14px}
+.section-head p{color:var(--muted); font-size:13.5px; margin-top:4px; max-width:70ch}
+
+/* week switch */
+.weekbar{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px}
+.weekbar button{
+  font:inherit; font-size:13px; font-weight:500; padding:7px 14px; cursor:pointer;
+  border:1px solid var(--line-strong); background:var(--surface); color:var(--muted); border-radius:20px;
+}
+.weekbar button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:var(--bg)}
+.weekbar button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+/* day rows */
+.days{display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.day{display:grid; grid-template-columns:104px repeat(4, 1fr); gap:0; background:var(--surface)}
+.day.head{background:var(--surface2)}
+.day.head div{font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:600; padding:9px 12px}
+.day > div{padding:11px 12px; border-left:1px solid var(--line)}
+.day > div:first-child{border-left:none}
+.dname{font-family:"Bitter",Georgia,serif; font-weight:600; font-size:14px}
+.dname .cook{display:block; font-family:"IBM Plex Sans",sans-serif; font-size:10px; font-weight:600; color:var(--warn); letter-spacing:.02em; text-transform:uppercase; margin-top:3px}
+.meal{font-size:13.2px; line-height:1.4}
+.meal .g{display:block; margin-top:5px; font-size:12px}
+.meal .g b{font-weight:600}
+.g .me{color:var(--me)} .g .wife{color:var(--wife)}
+.g i{font-style:normal; color:var(--muted); font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; font-weight:600; margin-right:2px}
+.meal a{text-decoration:none; color:inherit; border-bottom:1px dotted var(--line-strong)}
+.meal a:hover{border-bottom-color:var(--accent); color:var(--accent)}
+@media (max-width:760px){
+  .day{grid-template-columns:1fr 1fr}
+  .day.head{display:none}
+  .day > div{border-left:none; border-top:1px solid var(--line)}
+  .day > div:first-child{grid-column:1 / -1; background:var(--surface2); border-top:none}
+  .day{border-bottom:2px solid var(--line-strong)}
+  .meal::before{content:attr(data-l); display:block; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:3px}
+}
+
+/* dish cards */
+.dishgrid{display:flex; flex-direction:column; gap:14px}
+.dish{background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow:hidden}
+.dish > .dh{padding:15px 18px 13px; border-bottom:1px solid var(--line); display:flex; gap:12px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap}
+.dish .tag{font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:3px 8px; border-radius:5px; white-space:nowrap}
+.dish .meta{font-size:12.5px; color:var(--muted); margin-top:4px}
+.dbody{display:grid; grid-template-columns:minmax(230px,300px) 1fr; gap:0}
+@media (max-width:720px){ .dbody{grid-template-columns:1fr} }
+.ings{padding:14px 18px; border-right:1px solid var(--line)}
+@media (max-width:720px){ .ings{border-right:none; border-bottom:1px solid var(--line)} }
+.ings table{width:100%; border-collapse:collapse; font-size:13.2px}
+.ings td{padding:3.5px 0; vertical-align:baseline}
+.ings td:nth-child(2){text-align:right; white-space:nowrap; padding-left:10px; font-weight:500}
+.ings td:nth-child(3){text-align:right; white-space:nowrap; padding-left:10px; color:var(--muted); font-size:12px}
+.ings tr.total td{border-top:1px solid var(--line); padding-top:7px; font-weight:600}
+.ings .add{font-size:12.5px; color:var(--muted); margin-top:9px; padding-top:9px; border-top:1px dashed var(--line)}
+.steps{padding:14px 18px}
+.steps ol{margin:0; padding-left:19px; display:flex; flex-direction:column; gap:6px; font-size:13.5px}
+.steps li::marker{color:var(--accent); font-weight:600}
+
+/* portion calculator */
+.calc{padding:13px 18px 16px; background:var(--surface2); border-top:1px solid var(--line)}
+.calc .row{display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap}
+.calc label{font-size:12px; font-weight:600; color:var(--muted); display:block; margin-bottom:4px}
+.calc input{
+  font-family:"IBM Plex Mono", monospace; font-size:16px; font-weight:500; width:120px;
+  padding:7px 10px; border:1px solid var(--line-strong); border-radius:7px;
+  background:var(--surface); color:var(--ink);
+}
+.calc input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.calc .hint{font-size:12px; color:var(--muted); margin-top:6px}
+.pills{display:flex; gap:8px; flex-wrap:wrap}
+.pill{border-radius:8px; padding:7px 12px; border:1px solid var(--line); background:var(--surface); min-width:130px}
+.pill.me{border-left:3px solid var(--me)}
+.pill.wife{border-left:3px solid var(--wife)}
+.pill .who{font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.pill .amount{font-family:"IBM Plex Mono",monospace; font-size:19px; font-weight:600; line-height:1.2}
+.pill.me .amount{color:var(--me)} .pill.wife .amount{color:var(--wife)}
+.pill .sub{font-size:11.5px; color:var(--muted)}
+.note{font-size:12.5px; color:var(--warn); margin-top:8px}
+
+/* simple cards (breakfast/snack) */
+.cards{display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:12px}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:14px 16px}
+.card h3{margin-bottom:2px; font-size:15.5px}
+.card .kc{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--accent); font-weight:600; margin-bottom:8px}
+.card ul{margin:0; padding:0; list-style:none; font-size:13.2px; display:flex; flex-direction:column; gap:2px}
+.card ul li{display:flex; justify-content:space-between; gap:10px}
+.card ul li span:last-child{color:var(--muted); white-space:nowrap}
+.card .how{font-size:12.8px; color:var(--muted); margin-top:9px; padding-top:9px; border-top:1px dashed var(--line)}
+
+/* shopping */
+.shop{display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:12px}
+.shop .grp{background:var(--surface); border:1px solid var(--line); border-radius:11px; padding:13px 16px}
+.shop .grp h3{font-size:14px; margin-bottom:8px; padding-bottom:7px; border-bottom:1px solid var(--line)}
+.shop ul{margin:0; padding:0; list-style:none; font-size:13.3px; display:flex; flex-direction:column; gap:4px}
+.shop li{display:flex; justify-content:space-between; gap:10px}
+.shop li span:last-child{font-family:"IBM Plex Mono",monospace; font-weight:500; white-space:nowrap}
+
+/* products table */
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:11px; background:var(--surface)}
+table.prod{width:100%; border-collapse:collapse; font-size:13.4px; min-width:340px}
+table.prod th{text-align:left; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); font-weight:600; padding:10px 14px; background:var(--surface2); border-bottom:1px solid var(--line)}
+table.prod td{padding:8px 14px; border-bottom:1px solid var(--line)}
+table.prod tr:last-child td{border-bottom:none}
+table.prod td:nth-child(2), table.prod th:nth-child(2){text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+table.prod td:nth-child(3){color:var(--muted); font-size:12.5px}
+table.prod input{
+  font-family:"IBM Plex Mono", monospace; font-size:14px; font-weight:500; width:74px; text-align:right;
+  padding:4px 7px; border:1px solid var(--line-strong); border-radius:6px; background:var(--bg); color:var(--ink);
+}
+table.prod input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+table.prod tr.edited td:first-child::after{content:"изменено"; margin-left:8px; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--accent); font-weight:600}
+.resetbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:12px}
+.resetbar button{
+  font:inherit; font-size:13px; font-weight:500; padding:7px 13px; cursor:pointer;
+  border:1px solid var(--line-strong); background:var(--surface); color:var(--ink); border-radius:8px;
+}
+.resetbar button:hover{border-color:var(--accent); color:var(--accent)}
+.resetbar button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.resetbar .cnt{font-size:12.5px; color:var(--muted)}
+.daysum{display:flex; flex-direction:column; gap:1px; font-family:"IBM Plex Sans",sans-serif; font-size:11px; color:var(--muted); font-weight:400; margin-top:6px}
+.daysum b{font-weight:600; color:var(--ink)}
+.daysum b.off{color:var(--warn)}
+
+.howto{background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:10px; padding:14px 18px; margin-bottom:18px}
+.howto ol{margin:8px 0 0; padding-left:19px; font-size:13.6px; display:flex; flex-direction:column; gap:5px}
+.howto li::marker{color:var(--accent); font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+/* ---- v2: профиль, готовка по блокам ---- */
+.day > .dayfoot{grid-column:1 / -1; border-left:none; border-top:1px dashed var(--line); padding:8px 12px; font-size:12.5px; color:var(--muted); background:var(--surface2)}
+.dayfoot b{color:var(--ink); font-weight:600}
+.dayfoot b.off{color:var(--warn)}
+.seg{display:inline-flex; border:1px solid var(--line-strong); border-radius:10px; overflow:hidden; background:var(--surface)}
+.seg button{font:inherit; font-size:14px; font-weight:600; padding:8px 18px; border:none; background:none; color:var(--muted); cursor:pointer}
+.seg button + button{border-left:1px solid var(--line-strong)}
+.seg button[aria-pressed="true"].me{background:var(--me); color:var(--surface)}
+.seg button[aria-pressed="true"].wife{background:var(--wife); color:var(--surface)}
+.seg button:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.who-row{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:4px}
+.who-row .val{font-size:13px; color:var(--muted)}
+.days.wife .day{grid-template-columns:104px repeat(3, 1fr)}
+.days.wife .col-snack{display:none}
+@media (max-width:760px){ .days.wife .day{grid-template-columns:1fr 1fr} }
+.plate{display:flex; flex-direction:column; gap:1px; margin-top:5px; font-size:12px}
+.plate b{font-weight:600}
+.days.me .plate b{color:var(--me)}
+.days.wife .plate b{color:var(--wife)}
+.plate .pk{color:var(--muted)}
+
+.blocks{display:flex; flex-direction:column; gap:14px}
+.blk{background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow:hidden}
+.blk > .bh{padding:13px 18px; border-bottom:1px solid var(--line); display:flex; gap:10px 16px; align-items:baseline; flex-wrap:wrap}
+.blk .bh h3{font-size:16px}
+.blk .bh .when{font-size:12px; font-weight:600; color:var(--warn); text-transform:uppercase; letter-spacing:.04em}
+.comp{display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) 200px; gap:10px 18px; padding:13px 18px; border-bottom:1px solid var(--line); align-items:start}
+.comp:last-child{border-bottom:none}
+@media (max-width:760px){ .comp{grid-template-columns:1fr} }
+.comp .role{font-size:10.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+.comp h4{font-family:"Bitter",Georgia,serif; font-size:15px; font-weight:600; margin:2px 0 3px}
+.comp .tool{font-size:12px; color:var(--muted)}
+.comp ul{margin:0; padding:0; list-style:none; font-size:13px; display:flex; flex-direction:column; gap:2px}
+.comp ul li{display:flex; justify-content:space-between; gap:10px}
+.comp ul li span:last-child{font-family:"IBM Plex Mono",monospace; white-space:nowrap}
+.comp .extra{font-size:12px; color:var(--muted); margin-top:5px}
+.comp details{margin-top:7px; font-size:13px}
+.comp summary{cursor:pointer; color:var(--accent); font-weight:500; font-size:12.5px}
+.comp details ol{margin:6px 0 0; padding-left:18px; display:flex; flex-direction:column; gap:3px}
+.wbox{display:flex; flex-direction:column; gap:5px; min-width:150px}
+.wbox label{font-size:11.5px; font-weight:600; color:var(--muted)}
+.wbox input{font-family:"IBM Plex Mono",monospace; font-size:15px; font-weight:500; width:110px; padding:6px 9px; border:1px solid var(--line-strong); border-radius:7px; background:var(--bg); color:var(--ink)}
+.wbox input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.wbox .dens{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink)}
+.wbox .dens span{color:var(--muted)}
+.wbox .dens.set{color:var(--accent)}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">4 недели · 10 мясных заготовок · 5 гарниров · 8 завтраков</div>
+    <h1>Меню на месяц</h1>
+    <p class="lede">Мясо, гарнир и соус готовятся и взвешиваются отдельно. Тарелка собирается из компонентов: мясо добирает белок, гарнир добивает калории. Сколько ни положи в кастрюлю, граммы на тарелке выходят точными.</p>
+    <div class="who-row">
+      <div class="seg" role="group" aria-label="Чьё меню">
+        <button type="button" class="me" data-who="me" aria-pressed="true">Я</button>
+        <button type="button" class="wife" data-who="wife" aria-pressed="false">Жена</button>
+      </div>
+      <span class="val num" id="wholine"></span>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <div class="inner" role="tablist">
+      <button role="tab" data-p="plan" aria-selected="true">План</button>
+      <button role="tab" data-p="cook" aria-selected="false">Готовка</button>
+      <button role="tab" data-p="bs" aria-selected="false">Завтраки и перекусы</button>
+      <button role="tab" data-p="shop" aria-selected="false">Покупки</button>
+      <button role="tab" data-p="prod" aria-selected="false">Продукты</button>
+    </div>
+  </nav>
+
+  <section class="panel" id="p-plan">
+    <div class="howto">
+      <strong>Как это работает</strong>
+      <ol>
+        <li>Граммы в плане — по сухому и сырому весу: крупа и макароны сухими, мясо сырым (для котлет и тефтелей — сырой фарш или филе без добавок). Так же считают трекеры калорий.</li>
+        <li>Рядом мелко — сколько это на весах в готовом виде. Чтобы эта цифра была точной, на вкладке «Готовка» впиши вес каждой готовой заготовки.</li>
+        <li>Соус — в готовом виде, 50 г на тарелку.</li>
+      </ol>
+    </div>
+    <div class="weekbar" id="wb-plan"></div>
+    <div class="days me" id="calendar"></div>
+    <p style="margin-top:12px; color:var(--muted); font-size:13px" id="plannote"></p>
+  </section>
+
+  <section class="panel" id="p-cook" hidden>
+    <div class="section-head">
+      <h2>Готовка</h2>
+      <p>Сырое уже посчитано на троих, с запасом 5%. После готовки впиши вес каждой заготовки: калорийность на 100 г и граммы в плане пересчитаются.</p>
+    </div>
+    <div class="weekbar" id="wb-cook"></div>
+    <div class="blocks" id="cookblocks"></div>
+  </section>
+
+  <section class="panel" id="p-bs" hidden>
+    <div class="section-head">
+      <h2>Завтраки</h2>
+      <p>420–460 ккал, порция одинаковая для обоих. Овсяных завтраков — два в неделю.</p>
+      <p id="bweek" style="margin-top:6px"></p>
+    </div>
+    <div class="cards" id="breakfasts"></div>
+    <div class="section-head" style="margin-top:26px">
+      <h2>Перекусы</h2>
+      <p>~300 ккал, только тебе — добор от общих 1400 до 1700.</p>
+    </div>
+    <div class="cards" id="snacks"></div>
+  </section>
+
+  <section class="panel" id="p-shop" hidden>
+    <div class="section-head">
+      <h2>Покупки по неделям</h2>
+      <p>Заготовки, завтраки на троих, перекусы на двоих, салаты и хлеб. Специи, соль, чеснок, зелень и лимон — по остатку.</p>
+    </div>
+    <div class="weekbar" id="wb-shop"></div>
+    <div class="shop" id="shop"></div>
+  </section>
+
+  <section class="panel" id="p-prod" hidden>
+    <div class="section-head">
+      <h2>Продукты</h2>
+      <p>Калорийность и белок на 100 г (яйца и фрукты — на штуку). Впиши цифры со своих упаковок — заготовки, тарелки и итоги дня пересчитаются. Сохраняется в браузере.</p>
+    </div>
+    <div class="resetbar">
+      <button type="button" id="resetkcal">Вернуть исходные значения</button>
+      <span class="cnt" id="editedcnt"></span>
+    </div>
+    <div class="tablewrap">
+      <table class="prod">
+        <thead><tr><th>Продукт</th><th>ккал</th><th>белок, г</th><th>на</th></tr></thead>
+        <tbody id="prodbody"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+const DATA = {"products":[{"k":"chicken_breast","name":"Куриная грудка, филе","kcal":113,"unit":"г","p":23.6,"f":1.9,"c":0.4},{"k":"chicken_thigh","name":"Куриное бедро, филе без кожи","kcal":160,"unit":"г","p":19,"f":9.5,"c":0},{"k":"chicken_drum","name":"Куриная голень (с костью)","kcal":115,"unit":"г","p":12.6,"f":7.2,"c":0},{"k":"turkey_breast","name":"Индейка, филе грудки","kcal":100,"unit":"г","p":21.5,"f":1.5,"c":0},{"k":"turkey_thigh","name":"Индейка, филе бедра","kcal":145,"unit":"г","p":18,"f":8,"c":0},{"k":"turkey_mince","name":"Фарш индейки","kcal":170,"unit":"г","p":17,"f":11,"c":0},{"k":"beef_mince","name":"Фарш говяжий","kcal":220,"unit":"г","p":17,"f":16.5,"c":0},{"k":"pollock","name":"Минтай, филе","kcal":72,"unit":"г","p":16,"f":0.9,"c":0},{"k":"rice","name":"Рис (сухой)","kcal":340,"unit":"г","p":7,"f":1,"c":75},{"k":"pasta","name":"Макароны тв. сортов (сухие)","kcal":350,"unit":"г","p":12,"f":1.5,"c":71},{"k":"bulgur","name":"Булгур (сухой)","kcal":340,"unit":"г","p":12.3,"f":1.3,"c":69},{"k":"buckwheat","name":"Гречка (сухая)","kcal":320,"unit":"г","p":12.6,"f":3.3,"c":60},{"k":"potato","name":"Картофель","kcal":77,"unit":"г","p":2,"f":0.4,"c":16.3},{"k":"oats","name":"Овсяные хлопья","kcal":355,"unit":"г","p":12.3,"f":6.2,"c":61.8},{"k":"flour","name":"Мука пшеничная","kcal":340,"unit":"г","p":10,"f":1.2,"c":70.5},{"k":"bread","name":"Хлеб цельнозерновой","kcal":240,"unit":"г","p":9,"f":3,"c":44},{"k":"onion","name":"Лук репчатый","kcal":41,"unit":"г","p":1.4,"f":0.2,"c":8.2},{"k":"tom_paste","name":"Томатная паста","kcal":100,"unit":"г","p":4.8,"f":0.5,"c":18},{"k":"tom_canned","name":"Томаты в собственном соку","kcal":22,"unit":"г","p":1.1,"f":0.1,"c":3.8},{"k":"tomato","name":"Помидоры","kcal":20,"unit":"г","p":0.9,"f":0.2,"c":3.8},{"k":"cucumber","name":"Огурцы","kcal":15,"unit":"г","p":0.8,"f":0.1,"c":2.8},{"k":"pepper","name":"Перец болгарский","kcal":27,"unit":"г","p":1.3,"f":0.1,"c":5.3},{"k":"broccoli","name":"Брокколи (свежая или замороженная)","kcal":34,"unit":"г","p":2.8,"f":0.4,"c":6.6},{"k":"green_beans","name":"Стручковая фасоль (свежая или замороженная)","kcal":31,"unit":"г","p":1.8,"f":0.2,"c":7},{"k":"oil","name":"Масло растительное","kcal":899,"unit":"г","p":0,"f":99.9,"c":0},{"k":"sour_cream","name":"Сметана 10%","kcal":115,"unit":"г","p":3,"f":10,"c":3},{"k":"cheese","name":"Сыр полутвёрдый 45%","kcal":350,"unit":"г","p":25,"f":27,"c":0},{"k":"cream_cheese","name":"Творожный сыр","kcal":230,"unit":"г","p":7,"f":21,"c":3},{"k":"milk","name":"Молоко 2,5%","kcal":53,"unit":"г","p":2.9,"f":2.5,"c":4.7},{"k":"cottage","name":"Творог 5%","kcal":121,"unit":"г","p":17,"f":5,"c":1.8},{"k":"kefir","name":"Кефир 1%","kcal":40,"unit":"г","p":3,"f":1,"c":4},{"k":"yogurt","name":"Йогурт греческий 2%","kcal":66,"unit":"г","p":8,"f":2,"c":4},{"k":"trout","name":"Форель слабосолёная","kcal":190,"unit":"г","p":20,"f":12,"c":0},{"k":"miso","name":"Мисо-паста","kcal":200,"unit":"г","p":12,"f":6,"c":26},{"k":"soy","name":"Соевый соус","kcal":60,"unit":"г","p":6,"f":0,"c":8},{"k":"walnut","name":"Грецкий орех","kcal":654,"unit":"г","p":15,"f":65,"c":7},{"k":"egg","name":"Яйцо С1","kcal":80,"unit":"шт","p":7,"f":5.8,"c":0.4},{"k":"banana","name":"Банан","kcal":100,"unit":"шт","p":1.3,"f":0.4,"c":23},{"k":"apple","name":"Яблоко","kcal":70,"unit":"шт","p":0.6,"f":0.6,"c":15}],"comps":{"M1":{"t":"Куриное бедро с паприкой","type":"meat","tool":"Духовка, противень","add":"чеснок 3 зубчика, паприка 2 ч.л., соль, перец","steps":["Филе бедра целиком или половинками смешать с кефиром, чесноком и специями, от 30 мин до ночи.","Выложить на противень в один слой.","200 °C — 30 мин.","Взвесить всё мясо."],"bone":false},"M2":{"t":"Куриное бедро в мисо","type":"meat","tool":"Духовка, противень","add":"чеснок 3 зубчика, 2 ст.л. воды; без соли — мисо солёное","steps":["Мисо + масло + тёртый чеснок + вода — размешать.","Бедро смешать с маринадом, от 30 мин до ночи.","200 °C — 30 мин.","Взвесить."],"bone":false},"M3":{"t":"Куриные голени в кефире","type":"meat","tool":"Духовка, противень","add":"чеснок, паприка, соль, перец","steps":["Кефир + чеснок + специи, мариновать голени 1–12 ч.","Противень в один слой, 200 °C — 40–45 мин.","Взвесить с костями — граммы порций тоже с костями."],"bone":true},"M4":{"t":"Котлеты из куриной грудки с сыром","type":"meat","tool":"Духовка, противень + пергамент","add":"чеснок, зелень, соль, перец","steps":["Грудку порубить ножом в кубик 0,5 см или прокрутить. Лук мелко, сыр на тёрке.","Смешать с яйцами, сметаной, специями, 30 мин в холодильник.","Котлеты по ~80 г на пергамент, смазанный маслом. 190 °C — 25 мин.","Взвесить."],"bone":false},"M5":{"t":"Куриная грудка под помидорами и сыром","type":"meat","tool":"Духовка, форма","add":"чеснок, прованские травы, соль, перец","steps":["Грудку разрезать вдоль на пласты 1,5 см, слегка отбить.","Смазать сметаной с чесноком, посолить.","Сверху кружки помидоров и тёртый сыр. 190 °C — 25–30 мин.","Взвесить."],"bone":false},"M6":{"t":"Шашлычки из бедра индейки","type":"meat","tool":"Духовка, решётка над противнем","add":"соевый соус вместо соли; чеснок, паприка, зира","steps":["Бедро кусками 3 см, лук кольцами.","Кефир + соевый соус + лук + специи, мариновать 2–12 ч.","На решётку или шпажки, 220 °C — 25–30 мин, в середине перевернуть.","Взвесить мясо без лука."],"bone":false},"M7":{"t":"Котлеты из говяжьего фарша","type":"meat","tool":"Духовка, противень + пергамент","add":"вода 50 мл; чеснок, соль, перец","steps":["Хлопья залить 50 мл воды на 10 мин, лук натереть.","Фарш + лук + яйцо + хлопья + специи — вымесить.","Котлеты по ~80 г, 200 °C — 25 мин.","Взвесить."],"bone":false},"M8":{"t":"Тефтели из индейки","type":"meat","tool":"Духовка, противень + пергамент","add":"вода 50 мл; чеснок, соль, перец","steps":["Хлопья залить водой на 10 мин, лук мелко.","Фарш + лук + яйцо + хлопья + специи — вымесить.","Шарики по ~40 г, 200 °C — 20 мин.","Взвесить. Соус — отдельно."],"bone":false},"M9":{"t":"Минтай под сметаной с луком","type":"meat","tool":"Духовка, форма","add":"1 лимон, укроп, соль, перец","steps":["Филе кусками, соль, перец, лимонный сок.","Лук полукольцами на дно смазанной формы, сверху рыба.","Сметана слоем, тёртый сыр. 190 °C — 25 мин.","Взвесить вместе с луком."],"bone":false},"M10":{"t":"Индейка тушёная кусочками","type":"meat","tool":"Мультиварка Vitek: Поджаривание + Тушение","add":"вода 150 мл; чеснок, паприка, соль, перец","steps":["Индейку кубиком 3 см, лук полукольцами.","«Поджаривание»: масло + лук 7 мин, индейка ещё 10 мин.","Вода 150 мл, специи, «Тушение» 25 мин.","Слить жидкость, взвесить мясо с луком. Соус — отдельно."],"bone":false},"G1":{"t":"Рис","type":"garnish","tool":"Мультиварка «Крупа» 25 мин или кастрюля","add":"","steps":["Рис промыть до прозрачной воды.","Вода, щепоть соли, «Крупа» 25 мин (на плите — 18 мин под крышкой).","10 мин постоять, перемешать, взвесить."],"bone":false},"G2":{"t":"Гречка","type":"garnish","tool":"Кастрюля или мультиварка «Крупа»","add":"","steps":["Промыть.","Вода, соль, под крышкой на слабом огне 20 мин.","10 мин постоять, взвесить."],"bone":false},"G3":{"t":"Булгур","type":"garnish","tool":"Мультиварка «Крупа» 20 мин или сотейник","add":"","steps":["Горячая вода, соль.","«Крупа» 20 мин (на плите — 15 мин под крышкой).","10 мин постоять, взвесить."],"bone":false},"G4":{"t":"Макароны","type":"garnish","tool":"Кастрюля 3–4 л","add":"","steps":["Много кипящей подсоленной воды.","Варить на 1 мин меньше, чем на пачке.","Слить, взвесить."],"bone":false},"G5":{"t":"Картофель запечённый","type":"garnish","tool":"Духовка, противень","add":"паприка, чеснок, соль","steps":["Картофель дольками, масло, специи.","200 °C — 35–40 мин, в середине перевернуть.","Взвесить."],"bone":false},"S1":{"t":"Томатный соус","type":"sauce","tool":"Плита, сотейник","add":"чеснок 2 зубчика, итальянские травы, соль","steps":["Лук на масле 5 мин.","Томаты, паста, чеснок, травы — 15 мин на слабом огне.","Пробить блендером, взвесить."],"bone":false},"S2":{"t":"Сметанно-чесночный соус","type":"sauce","tool":"Миска","add":"чеснок 2 зубчика, укроп, соль","steps":["Всё смешать, чеснок натереть.","Взвесить."],"bone":false}},"instances":{"w0b0lm":{"cid":"M1","ing":[["chicken_thigh",1190],["kefir",120]],"out":860,"role":"lm"},"w0b0dm":{"cid":"M4","ing":[["chicken_breast",950],["cheese",70],["egg",2],["onion",160],["sour_cream",55],["oil",5]],"out":1050,"role":"dm"},"w0b0g":{"cid":"G1","ing":[["rice",1390]],"out":3760,"water":2780,"role":"g"},"w0b1lm":{"cid":"M10","ing":[["turkey_breast",810],["onion",120],["oil",10]],"out":650,"role":"lm"},"w0b1dm":{"cid":"M9","ing":[["pollock",830],["sour_cream",90],["onion",120],["cheese",30],["oil",5]],"out":730,"role":"dm"},"w0b1g":{"cid":"G4","ing":[["pasta",640]],"out":1460,"role":"g"},"w0b1wg":{"cid":"G2","ing":[["buckwheat",380]],"out":1130,"water":840,"role":"wg"},"w0b1s":{"cid":"S2","ing":[["yogurt",190],["sour_cream",130]],"out":320,"role":"s"},"w0b2lm":{"cid":"M8","ing":[["turkey_mince",520],["onion",80],["egg",1],["oats",20]],"out":520,"role":"lm"},"w0b2dm":{"cid":"M5","ing":[["chicken_breast",570],["tomato",140],["cheese",50],["sour_cream",45]],"out":520,"role":"dm"},"w0b2g":{"cid":"G3","ing":[["bulgur",1020]],"out":3270,"water":2240,"role":"g"},"w0b2s":{"cid":"S1","ing":[["tom_canned",280],["onion",70],["tom_paste",20],["oil",5]],"out":320,"role":"s"},"w1b0lm":{"cid":"M6","ing":[["turkey_thigh",910],["kefir",140],["soy",20],["onion",90]],"out":640,"role":"lm"},"w1b0dm":{"cid":"M3","ing":[["chicken_drum",1000],["kefir",70]],"out":730,"role":"dm"},"w1b0g":{"cid":"G5","ing":[["potato",6320],["oil",90]],"out":5050,"role":"g"},"w1b1lm":{"cid":"M2","ing":[["chicken_thigh",850],["miso",45],["oil",5]],"out":610,"role":"lm"},"w1b1dm":{"cid":"M7","ing":[["beef_mince",470],["onion",130],["egg",1],["oats",30]],"out":550,"role":"dm"},"w1b1g":{"cid":"G1","ing":[["rice",510]],"out":1380,"water":1020,"role":"g"},"w1b1wg":{"cid":"G2","ing":[["buckwheat",340]],"out":1010,"water":750,"role":"wg"},"w1b2lm":{"cid":"M10","ing":[["turkey_breast",790],["onion",120],["oil",10]],"out":630,"role":"lm"},"w1b2dm":{"cid":"M4","ing":[["chicken_breast",510],["cheese",40],["egg",1],["onion",80],["sour_cream",30],["oil",5]],"out":560,"role":"dm"},"w1b2g":{"cid":"G3","ing":[["bulgur",1020]],"out":3270,"water":2240,"role":"g"},"w1b2s":{"cid":"S2","ing":[["yogurt",190],["sour_cream",130]],"out":320,"role":"s"},"w2b0lm":{"cid":"M8","ing":[["turkey_mince",820],["onion",120],["egg",1],["oats",35]],"out":820,"role":"lm"},"w2b0dm":{"cid":"M1","ing":[["chicken_thigh",850],["kefir",90]],"out":610,"role":"dm"},"w2b0g":{"cid":"G4","ing":[["pasta",1440]],"out":3310,"role":"g"},"w2b0s":{"cid":"S1","ing":[["tom_canned",420],["onion",110],["tom_paste",30],["oil",10]],"out":470,"role":"s"},"w2b1lm":{"cid":"M5","ing":[["chicken_breast",760],["tomato",190],["cheese",70],["sour_cream",60]],"out":700,"role":"lm"},"w2b1dm":{"cid":"M6","ing":[["turkey_thigh",650],["kefir",100],["soy",15],["onion",70]],"out":460,"role":"dm"},"w2b1g":{"cid":"G1","ing":[["rice",610]],"out":1660,"water":1220,"role":"g"},"w2b1wg":{"cid":"G2","ing":[["buckwheat",390]],"out":1170,"water":860,"role":"wg"},"w2b2lm":{"cid":"M1","ing":[["chicken_thigh",550],["kefir",55]],"out":390,"role":"lm"},"w2b2dm":{"cid":"M9","ing":[["pollock",700],["sour_cream",70],["onion",100],["cheese",25],["oil",5]],"out":610,"role":"dm"},"w2b2g":{"cid":"G5","ing":[["potato",4270],["oil",60]],"out":3420,"role":"g"},"w3b0lm":{"cid":"M2","ing":[["chicken_thigh",1100],["miso",55],["oil",5]],"out":790,"role":"lm"},"w3b0dm":{"cid":"M5","ing":[["chicken_breast",1040],["tomato",260],["cheese",90],["sour_cream",80]],"out":960,"role":"dm"},"w3b0g":{"cid":"G1","ing":[["rice",1390]],"out":3760,"water":2780,"role":"g"},"w3b1lm":{"cid":"M4","ing":[["chicken_breast",780],["cheese",60],["egg",2],["onion",130],["sour_cream",45],["oil",5]],"out":870,"role":"lm"},"w3b1dm":{"cid":"M3","ing":[["chicken_drum",960],["kefir",60]],"out":700,"role":"dm"},"w3b1g":{"cid":"G4","ing":[["pasta",530]],"out":1230,"role":"g"},"w3b1wg":{"cid":"G2","ing":[["buckwheat",320]],"out":950,"water":700,"role":"wg"},"w3b1s":{"cid":"S1","ing":[["tom_canned",280],["onion",70],["tom_paste",20],["oil",5]],"out":320,"role":"s"},"w3b2lm":{"cid":"M6","ing":[["turkey_thigh",700],["kefir",110],["soy",15],["onion",70]],"out":490,"role":"lm"},"w3b2dm":{"cid":"M7","ing":[["beef_mince",320],["onion",80],["egg",1],["oats",20]],"out":360,"role":"dm"},"w3b2g":{"cid":"G3","ing":[["bulgur",1050]],"out":3370,"water":2310,"role":"g"}},"weeks":[{"blocks":[{"d":[0,1,2],"cook":"Вс вечером","lm":"M1","dm":"M4","g":"G1","wg":null,"s":null,"inst":{"lm":"w0b0lm","dm":"w0b0dm","g":"w0b0g"}},{"d":[3,4],"cook":"Ср вечером","lm":"M10","dm":"M9","g":"G4","wg":"G2","s":"S2","inst":{"lm":"w0b1lm","dm":"w0b1dm","g":"w0b1g","wg":"w0b1wg","s":"w0b1s"}},{"d":[5,6],"cook":"Пт вечером","lm":"M8","dm":"M5","g":"G3","wg":null,"s":"S1","inst":{"lm":"w0b2lm","dm":"w0b2dm","g":"w0b2g","s":"w0b2s"}}],"shop":[{"g":"Мясо и рыба","items":[{"name":"Куриная грудка, филе","q":1500,"unit":"г"},{"name":"Куриное бедро, филе без кожи","q":1200,"unit":"г"},{"name":"Индейка, филе грудки","q":810,"unit":"г"},{"name":"Фарш индейки","q":520,"unit":"г"},{"name":"Минтай, филе","q":830,"unit":"г"},{"name":"Форель слабосолёная","q":90,"unit":"г"}]},{"g":"Крупы, макароны, хлеб","items":[{"name":"Рис","q":1400,"unit":"г"},{"name":"Гречка","q":380,"unit":"г"},{"name":"Булгур","q":1000,"unit":"г"},{"name":"Макароны тв. сортов","q":640,"unit":"г"},{"name":"Овсяные хлопья","q":350,"unit":"г"},{"name":"Мука пшеничная","q":80,"unit":"г"},{"name":"Хлеб цельнозерновой","q":710,"unit":"г"}]},{"g":"Молочное и яйца","items":[{"name":"Молоко 2,5%","q":300,"unit":"г"},{"name":"Творог 5%","q":1650,"unit":"г"},{"name":"Кефир 1%","q":120,"unit":"г"},{"name":"Йогурт греческий 2%","q":740,"unit":"г"},{"name":"Сметана 10%","q":410,"unit":"г"},{"name":"Сыр полутвёрдый 45%","q":390,"unit":"г"},{"name":"Творожный сыр","q":60,"unit":"г"},{"name":"Яйцо С1","q":36,"unit":"шт"}]},{"g":"Овощи и фрукты","items":[{"name":"Лук репчатый","q":700,"unit":"г"},{"name":"Помидоры","q":2300,"unit":"г"},{"name":"Огурцы","q":2400,"unit":"г"},{"name":"Перец болгарский","q":600,"unit":"г"},{"name":"Брокколи","q":1050,"unit":"г"},{"name":"Стручковая фасоль","q":1050,"unit":"г"},{"name":"Банан","q":1,"unit":"шт"},{"name":"Яблоко","q":3,"unit":"шт"}]},{"g":"Бакалея","items":[{"name":"Томатная паста","q":80,"unit":"г"},{"name":"Томаты в собственном соку","q":1050,"unit":"г"},{"name":"Мисо-паста","q":20,"unit":"г"},{"name":"Масло растительное","q":90,"unit":"г"},{"name":"Грецкий орех","q":20,"unit":"г"}]}]},{"blocks":[{"d":[0,1,2],"cook":"Вс вечером","lm":"M6","dm":"M3","g":"G5","wg":null,"s":null,"inst":{"lm":"w1b0lm","dm":"w1b0dm","g":"w1b0g"}},{"d":[3,4],"cook":"Ср вечером","lm":"M2","dm":"M7","g":"G1","wg":"G2","s":null,"inst":{"lm":"w1b1lm","dm":"w1b1dm","g":"w1b1g","wg":"w1b1wg"}},{"d":[5,6],"cook":"Пт вечером","lm":"M10","dm":"M4","g":"G3","wg":null,"s":"S2","inst":{"lm":"w1b2lm","dm":"w1b2dm","g":"w1b2g","s":"w1b2s"}}],"shop":[{"g":"Мясо и рыба","items":[{"name":"Куриная грудка, филе","q":510,"unit":"г"},{"name":"Куриное бедро, филе без кожи","q":850,"unit":"г"},{"name":"Куриная голень","q":1000,"unit":"г"},{"name":"Индейка, филе грудки","q":790,"unit":"г"},{"name":"Индейка, филе бедра","q":910,"unit":"г"},{"name":"Фарш говяжий","q":470,"unit":"г"}]},{"g":"Крупы, макароны, хлеб","items":[{"name":"Рис","q":510,"unit":"г"},{"name":"Гречка","q":340,"unit":"г"},{"name":"Булгур","q":1000,"unit":"г"},{"name":"Овсяные хлопья","q":390,"unit":"г"},{"name":"Мука пшеничная","q":80,"unit":"г"},{"name":"Хлеб цельнозерновой","q":830,"unit":"г"}]},{"g":"Молочное и яйца","items":[{"name":"Молоко 2,5%","q":600,"unit":"г"},{"name":"Творог 5%","q":1950,"unit":"г"},{"name":"Кефир 1%","q":210,"unit":"г"},{"name":"Йогурт греческий 2%","q":740,"unit":"г"},{"name":"Сметана 10%","q":250,"unit":"г"},{"name":"Сыр полутвёрдый 45%","q":130,"unit":"г"},{"name":"Яйцо С1","q":29,"unit":"шт"}]},{"g":"Овощи и фрукты","items":[{"name":"Картофель","q":6300,"unit":"г"},{"name":"Лук репчатый","q":570,"unit":"г"},{"name":"Помидоры","q":1950,"unit":"г"},{"name":"Огурцы","q":2300,"unit":"г"},{"name":"Перец болгарский","q":600,"unit":"г"},{"name":"Брокколи","q":1050,"unit":"г"},{"name":"Стручковая фасоль","q":1050,"unit":"г"},{"name":"Банан","q":4,"unit":"шт"},{"name":"Яблоко","q":3,"unit":"шт"}]},{"g":"Бакалея","items":[{"name":"Томаты в собственном соку","q":750,"unit":"г"},{"name":"Мисо-паста","q":50,"unit":"г"},{"name":"Соевый соус","q":20,"unit":"г"},{"name":"Масло растительное","q":160,"unit":"г"},{"name":"Грецкий орех","q":50,"unit":"г"}]}]},{"blocks":[{"d":[0,1,2],"cook":"Вс вечером","lm":"M8","dm":"M1","g":"G4","wg":null,"s":"S1","inst":{"lm":"w2b0lm","dm":"w2b0dm","g":"w2b0g","s":"w2b0s"}},{"d":[3,4],"cook":"Ср вечером","lm":"M5","dm":"M6","g":"G1","wg":"G2","s":null,"inst":{"lm":"w2b1lm","dm":"w2b1dm","g":"w2b1g","wg":"w2b1wg"}},{"d":[5,6],"cook":"Пт вечером","lm":"M1","dm":"M9","g":"G5","wg":null,"s":null,"inst":{"lm":"w2b2lm","dm":"w2b2dm","g":"w2b2g"}}],"shop":[{"g":"Мясо и рыба","items":[{"name":"Куриная грудка, филе","q":760,"unit":"г"},{"name":"Куриное бедро, филе без кожи","q":1400,"unit":"г"},{"name":"Индейка, филе бедра","q":650,"unit":"г"},{"name":"Фарш индейки","q":820,"unit":"г"},{"name":"Минтай, филе","q":700,"unit":"г"},{"name":"Форель слабосолёная","q":90,"unit":"г"}]},{"g":"Крупы, макароны, хлеб","items":[{"name":"Рис","q":610,"unit":"г"},{"name":"Гречка","q":390,"unit":"г"},{"name":"Макароны тв. сортов","q":1450,"unit":"г"},{"name":"Овсяные хлопья","q":370,"unit":"г"},{"name":"Мука пшеничная","q":80,"unit":"г"},{"name":"Хлеб цельнозерновой","q":710,"unit":"г"}]},{"g":"Молочное и яйца","items":[{"name":"Молоко 2,5%","q":300,"unit":"г"},{"name":"Творог 5%","q":1650,"unit":"г"},{"name":"Кефир 1%","q":250,"unit":"г"},{"name":"Йогурт греческий 2%","q":550,"unit":"г"},{"name":"Сметана 10%","q":220,"unit":"г"},{"name":"Сыр полутвёрдый 45%","q":330,"unit":"г"},{"name":"Творожный сыр","q":60,"unit":"г"},{"name":"Яйцо С1","q":34,"unit":"шт"}]},{"g":"Овощи и фрукты","items":[{"name":"Картофель","q":4250,"unit":"г"},{"name":"Лук репчатый","q":550,"unit":"г"},{"name":"Помидоры","q":2350,"unit":"г"},{"name":"Огурцы","q":2400,"unit":"г"},{"name":"Перец болгарский","q":600,"unit":"г"},{"name":"Брокколи","q":1050,"unit":"г"},{"name":"Стручковая фасоль","q":1050,"unit":"г"},{"name":"Банан","q":1,"unit":"шт"},{"name":"Яблоко","q":3,"unit":"шт"}]},{"g":"Бакалея","items":[{"name":"Томатная паста","q":90,"unit":"г"},{"name":"Томаты в собственном соку","q":1150,"unit":"г"},{"name":"Мисо-паста","q":20,"unit":"г"},{"name":"Соевый соус","q":20,"unit":"г"},{"name":"Масло растительное","q":140,"unit":"г"},{"name":"Грецкий орех","q":20,"unit":"г"}]}]},{"blocks":[{"d":[0,1,2],"cook":"Вс вечером","lm":"M2","dm":"M5","g":"G1","wg":null,"s":null,"inst":{"lm":"w3b0lm","dm":"w3b0dm","g":"w3b0g"}},{"d":[3,4],"cook":"Ср вечером","lm":"M4","dm":"M3","g":"G4","wg":"G2","s":"S1","inst":{"lm":"w3b1lm","dm":"w3b1dm","g":"w3b1g","wg":"w3b1wg","s":"w3b1s"}},{"d":[5,6],"cook":"Пт вечером","lm":"M6","dm":"M7","g":"G3","wg":null,"s":null,"inst":{"lm":"w3b2lm","dm":"w3b2dm","g":"w3b2g"}}],"shop":[{"g":"Мясо и рыба","items":[{"name":"Куриная грудка, филе","q":1800,"unit":"г"},{"name":"Куриное бедро, филе без кожи","q":1100,"unit":"г"},{"name":"Куриная голень","q":960,"unit":"г"},{"name":"Индейка, филе бедра","q":700,"unit":"г"},{"name":"Фарш говяжий","q":320,"unit":"г"}]},{"g":"Крупы, макароны, хлеб","items":[{"name":"Рис","q":1400,"unit":"г"},{"name":"Гречка","q":320,"unit":"г"},{"name":"Булгур","q":1050,"unit":"г"},{"name":"Макароны тв. сортов","q":530,"unit":"г"},{"name":"Овсяные хлопья","q":380,"unit":"г"},{"name":"Мука пшеничная","q":80,"unit":"г"},{"name":"Хлеб цельнозерновой","q":830,"unit":"г"}]},{"g":"Молочное и яйца","items":[{"name":"Молоко 2,5%","q":600,"unit":"г"},{"name":"Творог 5%","q":1950,"unit":"г"},{"name":"Кефир 1%","q":170,"unit":"г"},{"name":"Йогурт греческий 2%","q":550,"unit":"г"},{"name":"Сметана 10%","q":220,"unit":"г"},{"name":"Сыр полутвёрдый 45%","q":240,"unit":"г"},{"name":"Яйцо С1","q":30,"unit":"шт"}]},{"g":"Овощи и фрукты","items":[{"name":"Лук репчатый","q":500,"unit":"г"},{"name":"Помидоры","q":2250,"unit":"г"},{"name":"Огурцы","q":2300,"unit":"г"},{"name":"Перец болгарский","q":600,"unit":"г"},{"name":"Брокколи","q":1050,"unit":"г"},{"name":"Стручковая фасоль","q":1050,"unit":"г"},{"name":"Банан","q":4,"unit":"шт"},{"name":"Яблоко","q":3,"unit":"шт"}]},{"g":"Бакалея","items":[{"name":"Томатная паста","q":20,"unit":"г"},{"name":"Томаты в собственном соку","q":1050,"unit":"г"},{"name":"Мисо-паста","q":60,"unit":"г"},{"name":"Соевый соус","q":20,"unit":"г"},{"name":"Масло растительное","q":60,"unit":"г"},{"name":"Грецкий орех","q":50,"unit":"г"}]}]}],"targets":{"me":{"name":"Ты","day":1700,"lunch":500,"lunchProt":38,"dinner":395},"wife":{"name":"Жена","day":1400,"lunch":500,"lunchProt":38,"dinner":395},"kid":{"lunch":450,"lunchProt":30,"dinner":400}},"sauceG":50,"breakfasts":{"B1":{"t":"Томатная овсянка с мисо и яйцом","add":"вода 200 мл, зелень; без соли — мисо солёное","how":"Хлопья + вода + томатная паста — 5 мин. Снять с огня, вмешать мисо и сыр. Яйцо варить 9 мин, огурец отдельно.","ing":[["oats",60],["tom_paste",20],["miso",5],["cheese",30],["egg",1],["cucumber",150]]},"B2":{"t":"Омлет с сыром, хлеб, помидор","add":"соль, зелень; нет хлеба — третье яйцо","how":"Яйца + молоко + соль взбить, сковорода с маслом, под крышкой 5–6 мин, сыр сверху.","ing":[["egg",2],["milk",50],["cheese",20],["oil",5],["bread",40],["tomato",150]]},"B3":{"t":"Овсянка на молоке с бананом и орехами","add":"вода 100 мл, щепоть соли","how":"Хлопья + молоко + вода — 5 мин. Сверху банан и рубленый орех.","ing":[["oats",50],["milk",150],["banana",1],["walnut",10]]},"B4":{"t":"Бутерброды с творожной пастой и яйцом","add":"чеснок, зелень, соль","how":"Творог + чеснок + зелень + соль размять, на 2 ломтика хлеба, сверху огурец. Яйцо варёное.","ing":[["bread",80],["cottage",100],["egg",1],["cucumber",100],["tomato",50]]},"B5":{"t":"Сырники со сметаной","add":"щепоть соли","how":"Творог + яйцо + мука — 4–5 сырников, сковорода с маслом, по 3–4 мин с каждой стороны под крышкой.","ing":[["cottage",180],["egg",0.5],["flour",25],["oil",5],["sour_cream",30]]},"B6":{"t":"Шакшука с хлебом","add":"чеснок, паприка, зира, соль","how":"Лук и перец на масле 5 мин, томаты и специи 7 мин, вбить яйца, под крышкой 5–6 мин.","ing":[["egg",2],["tom_canned",250],["onion",50],["pepper",60],["oil",5],["bread",60]]},"B7":{"t":"Овсяноблин с овощами","add":"щепоть соли, зелень","how":"Яйца + хлопья + соль, 5 мин постоять. Антипригарная сковорода без масла, под крышкой 3–4 мин, перевернуть, 2 мин.","ing":[["egg",2],["oats",70],["tomato",80],["cucumber",80]]},"B8":{"t":"Овсяноблин с форелью и творожным сыром","add":"укроп","how":"Как овощной, но хлопьев 50 г. Блин смазать сыром, сверху форель и овощи.","ing":[["egg",2],["oats",50],["cream_cheese",20],["trout",30],["cucumber",60],["tomato",50]]}},"bw":[["B2","B1","B4","B6","B2","B8","B5"],["B4","B7","B2","B6","B3","B5","B4"],["B2","B1","B4","B6","B2","B8","B5"],["B4","B7","B2","B6","B3","B5","B4"]],"snacks":[{"t":"Творог с греческим йогуртом","ing":[["cottage",220],["yogurt",50]],"add":"с 20 г мини-маршмеллоу — творога 165 г"},{"t":"Творог с яблоком","ing":[["cottage",190],["apple",1]]},{"t":"Греческий йогурт, банан, орехи","ing":[["yogurt",200],["banana",1],["walnut",10]]},{"t":"Греческий йогурт, яблоко, орехи","ing":[["yogurt",250],["apple",1],["walnut",10]]},{"t":"Бутерброд с сыром и яйцом","ing":[["bread",50],["cheese",25],["egg",1],["cucumber",50]],"add":"яйцо варёное, огурец кружками на бутерброд"}],"salad":{"ing":[["cucumber",100],["tomato",70],["pepper",30]]},"veg":{"me":[["green_beans",150]],"wife":[["broccoli",150]]},"days":["Пн","Вт","Ср","Чт","Пт","Сб","Вс"]};
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const load = (k, d) => { try { return JSON.parse(localStorage.getItem(k) || 'null') ?? d; } catch(e) { return d; } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {} };
+
+const PR = Object.fromEntries(DATA.products.map(p => [p.k, p]));
+let edK = load('m2-kcal', {}), edP = load('m2-prot', {}), actual = load('m2-actual', {});
+let who = load('m2-who', 'me'); if (who !== 'me' && who !== 'wife') who = 'me';
+let week = 0;
+
+const kc = k => edK[k] ?? PR[k].kcal;
+const pr = k => edP[k] ?? PR[k].p;
+const perQ = (k, q, v) => PR[k].unit === 'шт' ? v * q : v * q / 100;
+const nutr = ing => ing.reduce((a, [k, q]) => ({ k: a.k + perQ(k, q, kc(k)), p: a.p + perQ(k, q, pr(k)), f: a.f + perQ(k, q, PR[k].f), c: a.c + perQ(k, q, PR[k].c) }), { k: 0, p: 0, f: 0, c: 0 });
+const T = DATA.targets;
+
+/* k, p — на 1 г готового; rk, rp — на 1 г сухого/сырого основного продукта; ratio — сколько готового даёт 1 г сухого */
+function instDens(id) {
+  const it = DATA.instances[id], n = nutr(it.ing), w = actual[id] || it.out, main = it.ing[0][1];
+  return { k: n.k / w, p: n.p / w, f: n.f / w, c: n.c / w, rk: n.k / main, rp: n.p / main, rf: n.f / main, rc: n.c / main, ratio: w / main, w, set: !!actual[id] };
+}
+/* ---- расчёт тарелок (общий с генератором) ---- */
+// Общий расчёт тарелок — используется и генератором, и страницей.
+// M, DM, G — плотности на 1 г сухого/сырого основного продукта: rk ккал, rp белок, rf жиры, rc углеводы.
+// S — соус, на 1 г готового: k, p, f, c.
+const PLAN = {
+  carbFloor: 155,      // углеводов за день от завтрака, обеда, ужина и салатов — не меньше
+  minGarnLunch: 0.35,  // гарнир не меньше этой доли калорий тарелки
+  minGarnDinner: 0.2,
+  minMeat: 0.3         // мясо не меньше этой доли калорий тарелки
+};
+function r5(v) { return Math.max(0, Math.round(v / 5) * 5); }
+function plateOf(target, M, G, needC, sauceG, S, minGarn) {
+  const sK = S ? sauceG * S.k : 0;
+  const avail = target - sK;
+  let garnK = Math.max(Math.max(0, needC) / G.rc * G.rk, minGarn * avail);
+  garnK = Math.min(garnK, avail * (1 - PLAN.minMeat));
+  const garn = r5(garnK / G.rk), meat = r5((avail - garn * G.rk) / M.rk);
+  const sg = S ? sauceG : 0;
+  const sum = key => meat * M['r' + key] + garn * G['r' + key] + (S ? sg * S[key] : 0);
+  return { meat, garn, sauce: sg, kcal: sum('k'), prot: sum('p'), fat: sum('f'), carb: sum('c') };
+}
+// lunch, dinner — калории тарелок; bfCarbMin — углеводы самого «бедного» завтрака в блоке; salCarb — углеводы двух салатов
+function planBlock(o) {
+  const sC = o.S ? o.sauceG * o.S.c : 0;
+  const need = Math.max(0, PLAN.carbFloor - o.bfCarbMin - o.salCarb);
+  const share = o.lunch / (o.lunch + o.dinner);
+  const needL = need * share - sC, needD = need * (1 - share);
+  return {
+    lunch: plateOf(o.lunch, o.M, o.G, needL, o.sauceG, o.S, PLAN.minGarnLunch),
+    dinner: plateOf(o.dinner, o.DM, o.G, needD, 0, null, PLAN.minGarnDinner)
+  };
+}
+function blockPlates(b) {
+  const M = instDens(b.inst.lm), DM = instDens(b.inst.dm), G = instDens(b.inst.g), S = b.inst.s ? instDens(b.inst.s) : null;
+  const WG = b.inst.wg ? instDens(b.inst.wg) : G;
+  const bfCarbMin = Math.min(...b.d.map(i => nutr(DATA.breakfasts[DATA.bw[week][i]].ing).c));
+  const base = { M, DM, S, sauceG: DATA.sauceG, bfCarbMin, salCarb: nutr(DATA.salad.ing).c + Math.min(nutr(DATA.veg.me).c, nutr(DATA.veg.wife).c), lunch: T.me.lunch, dinner: T.me.dinner };
+  const me = planBlock({ ...base, G }), wf = b.inst.wg ? planBlock({ ...base, G: WG }) : me;
+  const cooked = (pl, Md, Gd) => ({ ...pl, meatC: r5(pl.meat * Md.ratio), garnC: r5(pl.garn * Gd.ratio) });
+  return {
+    me:   { lunch: cooked(me.lunch, M, G),  dinner: cooked(me.dinner, DM, G) },
+    wife: { lunch: cooked(wf.lunch, M, WG), dinner: cooked(wf.dinner, DM, WG) }
+  };
+}
+const DRY = new Set(['rice', 'buckwheat', 'bulgur', 'pasta']);
+const MAIN = {};
+Object.values(DATA.instances).forEach(x => { MAIN[x.cid] = x.ing[0][0]; });
+const isDry = cid => DRY.has(MAIN[cid]);
+const cname = id => DATA.comps[id].t;
+const salK = () => nutr(DATA.salad.ing).k;
+
+/* ---- план ---- */
+function plateHtml(pl, meatCid, garnCid, sauceCid) {
+  const bone = DATA.comps[meatCid].bone ? ' с костью' : '';
+  return `<span class="plate num">
+    <span><b>${pl.meat} г</b> <span class="pk">мясо · сырой вес${bone} · ≈${pl.meatC} г готового</span></span>
+    <span><b>${pl.garn} г</b> <span class="pk">${esc(cname(garnCid).toLowerCase())} · ${isDry(garnCid) ? 'сухой' : 'сырой'} вес · ≈${pl.garnC} г готового</span></span>
+    ${pl.sauce ? `<span><b>${pl.sauce} г</b> <span class="pk">соус · готовый</span></span>` : ''}
+    <span class="pk">${Math.round(pl.kcal)} ккал · б ${Math.round(pl.prot)} · у ${Math.round(pl.carb)}</span>
+  </span>`;
+}
+function renderPlan() {
+  const w = DATA.weeks[week];
+  const days = $('#calendar');
+  days.className = 'days ' + who;
+  let html = `<div class="day head"><div>День</div><div>Завтрак</div><div>Обед</div><div>Ужин</div><div class="col-snack">Перекус</div></div>`;
+  for (let i = 0; i < 7; i++) {
+    const b = w.blocks.find(x => x.d.includes(i));
+    const pl = blockPlates(b)[who];
+    const gid = who === 'wife' && b.wg ? b.wg : b.g;
+    const bf = DATA.breakfasts[DATA.bw[week][i]], sn = DATA.snacks[i % DATA.snacks.length];
+    const bfk = Math.round(nutr(bf.ing).k), snk = Math.round(nutr(sn.ing).k);
+    const lunch = pl.lunch, dinner = pl.dinner;
+    const sal = nutr(DATA.salad.ing), bfn = nutr(bf.ing), snn = nutr(sn.ing), withSn = who === 'me' ? 1 : 0;
+    const vg = nutr(DATA.veg[who]);
+    const sum = key => bfn[key] + sal[key] + vg[key] + withSn * snn[key];
+    const total = Math.round(sum('k') + lunch.kcal + dinner.kcal);
+    const dayP = Math.round(sum('p') + lunch.prot + dinner.prot);
+    const dayF = Math.round(sum('f') + lunch.fat + dinner.fat);
+    const dayC = Math.round(sum('c') + lunch.carb + dinner.carb);
+    const goal = T[who].day;
+    html += `<div class="day">
+      <div class="dname">${DATA.days[i]}${b.d[0] === i ? `<span class="cook">готовим ${esc(b.cook.split(' ')[0])}</span>` : ''}</div>
+      <div class="meal" data-l="Завтрак">${esc(bf.t)}<span class="g num">${bfk} ккал</span></div>
+      <div class="meal" data-l="Обед">${esc(cname(b.lm))} + ${esc(cname(gid).toLowerCase())}${b.s ? ', ' + esc(cname(b.s).toLowerCase()) : ''}${plateHtml(lunch, b.lm, gid, b.s)}</div>
+      <div class="meal" data-l="Ужин">${esc(cname(b.dm))} + ${esc(cname(gid).toLowerCase())}${plateHtml(dinner, b.dm, gid, null)}<span class="plate num"><span class="pk">+ ${DATA.veg[who][0][1]} г ${who === 'me' ? 'стручковой фасоли' : 'брокколи'} на пару</span></span></div>
+      <div class="meal col-snack" data-l="Перекус">${esc(sn.t)}<span class="g num">${snk} ккал</span></div>
+      <div class="dayfoot num">Итого за день: <b class="${Math.abs(total - goal) > 60 ? 'off' : ''}">${total} ккал</b> · белки <b>${dayP} г</b> · жиры <b>${dayF} г</b> · углеводы <b>${dayC} г</b></div>
+    </div>`;
+  }
+  days.innerHTML = html;
+  const vegLine = who === 'me' ? 'стручковая фасоль 150 г' : 'брокколи 150 г';
+  $('#plannote').textContent = `К обеду — салат: 100 г огурца, 70 г помидора, 30 г перца, без масла (~${Math.round(salK())} ккал). К ужину — ${vegLine}: замороженную на «Варке на пару» 10–12 мин или 5–7 мин в кипятке.` + (who === 'wife' ? ' В дни с гречкой её варят отдельно для тебя.' : '');
+}
+
+/* ---- готовка ---- */
+const densHtml = (d, cid) => `${Math.round(d.rk * 100)} ккал · ${(d.rp * 100).toFixed(1)} г белка <span>/100 г ${isDry(cid) ? 'сухого' : 'сырого'}</span><br><span>готового: ${Math.round(d.k * 100)} ккал /100 г</span>`;
+const ROLE = { lm: 'Мясо на обед', dm: 'Мясо на ужин', g: 'Гарнир', wg: 'Гарнир жене', s: 'Соус к обеду' };
+function renderCook() {
+  const w = DATA.weeks[week];
+  $('#cookblocks').innerHTML = w.blocks.map(b => {
+    const range = b.d.map(i => DATA.days[i]); const title = range[0] + '–' + range[range.length - 1];
+    const rows = ['lm', 'dm', 'g', 'wg', 's'].filter(r => b.inst[r]).map(r => {
+      const id = b.inst[r], it = DATA.instances[id], c = DATA.comps[it.cid], d = instDens(id);
+      const ings = it.ing.map(([k, q]) => `<li><span>${esc(PR[k].name)}</span><span>${q} ${PR[k].unit}</span></li>`).join('');
+      return `<div class="comp">
+        <div>
+          <div class="role">${ROLE[r]}</div>
+          <h4>${esc(c.t)}</h4>
+          <div class="tool">${esc(c.tool)}</div>
+          <details><summary>Как готовить</summary><ol>${c.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol></details>
+        </div>
+        <div>
+          <ul>${ings}</ul>
+          <div class="extra">${esc([it.water ? `вода ${it.water} мл` : '', c.add, c.bone ? 'вес с костями' : ''].filter(Boolean).join(' · '))}</div>
+        </div>
+        <div class="wbox">
+          <label for="w-${id}">Получилось, г</label>
+          <input class="num" type="number" inputmode="numeric" min="1" step="10" id="w-${id}" data-id="${id}" value="${d.w}">
+          <div class="dens${d.set ? ' set' : ''}" data-dens="${id}">${densHtml(d, it.cid)}</div>
+        </div>
+      </div>`;
+    }).join('');
+    return `<article class="blk"><div class="bh"><h3>${title}</h3><span class="when">готовим ${esc(b.cook)}</span></div>${rows}</article>`;
+  }).join('');
+  document.querySelectorAll('#cookblocks input').forEach(inp => inp.addEventListener('input', () => {
+    const v = parseInt(inp.value, 10), id = inp.dataset.id;
+    if (v > 0) actual[id] = v; else delete actual[id];
+    save('m2-actual', actual);
+    const d = instDens(id), el = document.querySelector(`[data-dens="${id}"]`);
+    el.className = 'dens' + (d.set ? ' set' : '');
+    el.innerHTML = densHtml(d, DATA.instances[id].cid);
+    renderPlan();
+  }));
+}
+
+/* ---- завтраки, покупки, продукты ---- */
+function renderBS() {
+  const li = ing => ing.map(([k, q]) => `<li><span>${esc(PR[k].name)}</span><span class="num">${q} ${PR[k].unit} · ${Math.round(perQ(k, q, kc(k)))} ккал</span></li>`).join('');
+  $('#breakfasts').innerHTML = Object.values(DATA.breakfasts).map(b => `<div class="card"><h3>${esc(b.t)}</h3>
+    <div class="kc num">${Math.round(nutr(b.ing).k)} ккал · белок ${Math.round(nutr(b.ing).p)} г</div><ul>${li(b.ing)}</ul>
+    ${b.add ? `<div class="how">${esc(b.add)}</div>` : ''}<div class="how">${esc(b.how)}</div></div>`).join('');
+  $('#snacks').innerHTML = DATA.snacks.map(s => `<div class="card"><h3>${esc(s.t)}</h3>
+    <div class="kc num">${Math.round(nutr(s.ing).k)} ккал · белок ${Math.round(nutr(s.ing).p)} г</div><ul>${li(s.ing)}</ul>
+    ${s.add ? `<div class="how">${esc(s.add)}</div>` : ''}</div>`).join('');
+  const nm = { B1:'томатная овсянка', B2:'омлет', B3:'овсянка с бананом', B4:'бутерброды', B5:'сырники', B6:'шакшука', B7:'овсяноблин с овощами', B8:'овсяноблин с форелью' };
+  const line = wk => wk.map((id, i) => DATA.days[i] + ' — ' + nm[id]).join(' · ');
+  $('#bweek').innerHTML = `Недели 1 и 3: ${esc(line(DATA.bw[0]))}<br>Недели 2 и 4: ${esc(line(DATA.bw[1]))}`;
+}
+function renderShop() {
+  $('#shop').innerHTML = DATA.weeks[week].shop.map(g => `<div class="grp"><h3>${esc(g.g)}</h3>
+    <ul>${g.items.map(i => `<li><span>${esc(i.name)}</span><span class="num">${i.q} ${i.unit}</span></li>`).join('')}</ul></div>`).join('');
+}
+function edCount() {
+  return new Set([...Object.keys(edK).filter(k => edK[k] !== PR[k].kcal), ...Object.keys(edP).filter(k => edP[k] !== PR[k].p)]).size;
+}
+function renderProducts() {
+  $('#prodbody').innerHTML = DATA.products.map(p => {
+    const ed = (edK[p.k] !== undefined && edK[p.k] !== p.kcal) || (edP[p.k] !== undefined && edP[p.k] !== p.p);
+    return `<tr class="${ed ? 'edited' : ''}"><td>${esc(p.name)}</td>
+      <td><input class="num" type="number" inputmode="decimal" min="0" step="1" id="k-${p.k}" data-k="${p.k}" data-f="k" value="${kc(p.k)}" aria-label="${esc(p.name)}, ккал"></td>
+      <td><input class="num" type="number" inputmode="decimal" min="0" step="0.1" id="p-${p.k}" data-k="${p.k}" data-f="p" value="${pr(p.k)}" aria-label="${esc(p.name)}, белок"></td>
+      <td>${p.unit === 'шт' ? 'шт' : '100 г'}</td></tr>`;
+  }).join('');
+  $('#prodbody').querySelectorAll('input').forEach(inp => inp.addEventListener('input', () => {
+    const v = parseFloat(inp.value), k = inp.dataset.k, store = inp.dataset.f === 'k' ? edK : edP;
+    if (v >= 0) store[k] = v; else delete store[k];
+    save('m2-kcal', edK); save('m2-prot', edP);
+    const p = PR[k];
+    inp.closest('tr').classList.toggle('edited', kc(k) !== p.kcal || pr(k) !== p.p);
+    $('#editedcnt').textContent = edCount() ? `изменено продуктов: ${edCount()}` : 'все значения исходные';
+    renderPlan(); renderCook(); renderBS();
+  }));
+  $('#editedcnt').textContent = edCount() ? `изменено продуктов: ${edCount()}` : 'все значения исходные';
+}
+$('#resetkcal').addEventListener('click', () => { edK = {}; edP = {}; save('m2-kcal', edK); save('m2-prot', edP); renderProducts(); renderPlan(); renderCook(); renderBS(); });
+
+/* ---- профиль, недели, вкладки ---- */
+function renderWho() {
+  document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.who === who)));
+  $('#wholine').textContent = who === 'me'
+    ? '1700 ккал · завтрак ~430 · обед 500 + салат · ужин 395 + салат · перекус ~300'
+    : '1400 ккал · завтрак ~430 · обед 500 + салат · ужин 395 + салат';
+}
+document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => { who = b.dataset.who; save('m2-who', who); renderWho(); renderPlan(); }));
+function renderWeekbars() {
+  ['#wb-plan', '#wb-cook', '#wb-shop'].forEach(sel => {
+    $(sel).innerHTML = DATA.weeks.map((_, i) => `<button type="button" data-w="${i}" aria-pressed="${i === week}">Неделя ${i + 1}</button>`).join('');
+    $(sel).querySelectorAll('button').forEach(b => b.addEventListener('click', () => { week = +b.dataset.w; renderWeekbars(); renderPlan(); renderCook(); renderShop(); }));
+  });
+}
+document.querySelectorAll('nav.tabs button').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('nav.tabs button').forEach(b => b.setAttribute('aria-selected', String(b === btn)));
+  ['plan', 'cook', 'bs', 'shop', 'prod'].forEach(p => { $('#p-' + p).hidden = p !== btn.dataset.p; });
+}));
+
+renderWho(); renderWeekbars(); renderPlan(); renderCook(); renderBS(); renderShop(); renderProducts();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+</script>
+</body>
+</html>
